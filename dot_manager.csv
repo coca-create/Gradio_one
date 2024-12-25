@@ -1,0 +1,10 @@
+元の単語,置き換え後の単語,タグ,属性
+dr.,dr[dot],# en,Set
+Dr.,Dr[dot],# en,Set
+a.m.,a[dot]m[dot],# en,Single
+p.m.,p[dot]m[dot],# en,Single
+A.M.,A[dot]M[dot],# en,Single
+P.M.,P[dot]M[dot],# en,Single
+etc.,etc[dot],# et cetra,Single
+i.e.,i[dot]e[dot],# that is,Single
+e.g.,e[dot]g[dot],# for example,Single
