@@ -21,7 +21,7 @@ import ffmpeg
 import math
 from multiprocessing import Process, Queue
 
-def get_audio_duration(filepath, output_dir="temp_wav_files"):
+def get_audio_duration(filepath, output_dir="/content/temp_wav_files"):
     """
     Converts an input audio/video file to WAV format with 16kHz sampling rate and mono channel.
     Returns the duration (in seconds) of the audio and the path to the converted WAV file.
@@ -35,14 +35,12 @@ def get_audio_duration(filepath, output_dir="temp_wav_files"):
     """
     try:
         # Ensure the output directory exists
-        if not filepath.endswith(".wav"):
-            
-            data_folder=os.path.join(os.getenv('APPDATA'), 'PeriOz_web1')
-            os.makedirs(data_folder, exist_ok=True)
+        os.makedirs(output_dir, exist_ok=True)
 
+        if not filepath.endswith(".wav"):
             # Generate a temporary output path for the WAV file
             filename = os.path.splitext(os.path.basename(filepath))[0]
-            wav_filepath = os.path.join(data_folder, f"{filename}.wav")
+            wav_filepath = os.path.join(output_dir, f"{filename}.wav")
 
             # Convert the input file to WAV format with 16kHz and mono
             ffmpeg.input(filepath).output(
@@ -52,7 +50,7 @@ def get_audio_duration(filepath, output_dir="temp_wav_files"):
                 ar="16000",  # 16kHz sampling rate
             ).run(overwrite_output=True)
         else:
-            wav_filepath=filepath
+            wav_filepath = filepath
 
         # Get the duration of the converted file using ffprobe
         probe = ffmpeg.probe(wav_filepath)
@@ -65,9 +63,10 @@ def get_audio_duration(filepath, output_dir="temp_wav_files"):
         return duration, wav_filepath
 
     except Exception as e:
-        print(f"Error in convert_to_wav_and_get_duration: {e}")
-        traceback.print_exc()
+        print(f"Error processing file {filepath}: {e}")
         return None, None
+
+
 
 def format_timestamp(seconds):
     hrs, secs = divmod(seconds, 3600)
@@ -491,17 +490,13 @@ def transcribe(queue,File, Model, Computing, Lang, BeamSize, VadFilter, device):
                 match = re.search(r"(\d{2}:\d{2}:\d{2},\d{3}) --> (\d{2}:\d{2}:\d{2},\d{3})", segment)
                 if match:
                     start_time = parse_timestamp(match.group(1))
-                    #print(start_time)
                     end_time = parse_timestamp(match.group(2))
-                    #print(end_time)
                     # 差が20秒以上ならfuncAを実行
                     if end_time - start_time > 60:
-                        message="60秒以上のセグメントが見つかりました。ピリオド付加をご検討下さい"
-                        return message
+                        return "60秒以上のセグメントが見つかりました。ピリオド付加をご検討下さい"
                     else:
                         pass
-            message="長時間(>60秒）のセグメントはありません。"
-            return message
+            return "長時間(>60秒）のセグメントはありません。"
 
         segment_info=process_srt(srt_output_path)               
 
@@ -509,7 +504,6 @@ def transcribe(queue,File, Model, Computing, Lang, BeamSize, VadFilter, device):
                 txtdoc_nr_output_path, txtdoc_r_output_path,segment_info]
         queue.put(("result",paths))
         queue.put(("done",None))
-        return
         
         #torch.cuda.empty_cache()  # GPUメモリを解放
         #gc.collect()     
@@ -518,7 +512,6 @@ def transcribe(queue,File, Model, Computing, Lang, BeamSize, VadFilter, device):
         print(f"ファイル処理中にエラーが発生しました: {e}")
         traceback.print_exc()
         queue.put(("error",None))
-        return
 
 
 def run_with_progress(File, Model, Computing, Lang, BeamSize, VadFilter, device,progress=gr.Progress()):
@@ -546,7 +539,7 @@ def run_with_progress(File, Model, Computing, Lang, BeamSize, VadFilter, device,
             break
     process.join()
     if flag==True:
-        return "","","", "", [], [] ,"", "", "", "","", "", None
+        return "","","", "", [], [] ,"", "", "", "", "","", None
 
     
     
@@ -617,7 +610,7 @@ def run_with_progress(File, Model, Computing, Lang, BeamSize, VadFilter, device,
 
     filename_copy = input_file_name
     srt_dummy_output_path = srt_output_path
-    return segment_info,srt_content,txt_nr_content, txt_r_content, main_files, doc_files ,html_srt, html_nr_txt, html_r_txt, filename_copy, srt_dummy_output_path, df_display,[json_output_path,srt_output_path]
+    return segment_info,srt_content,txt_nr_content, txt_r_content, main_files, doc_files ,html_srt, html_nr_txt, html_r_txt, filename_copy, srt_dummy_output_path, df_display
 
 '''
 テキストエリア①
