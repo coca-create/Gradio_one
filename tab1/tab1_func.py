@@ -539,7 +539,7 @@ def run_with_progress(File, Model, Computing, Lang, BeamSize, VadFilter, device,
             break
     process.join()
     if flag==True:
-        return "","","", "", [], [] ,"", "", "", "", "","", None
+        return "","","", "", [], [] ,"", "", "", "", "","", []
 
     
     
@@ -610,7 +610,7 @@ def run_with_progress(File, Model, Computing, Lang, BeamSize, VadFilter, device,
 
     filename_copy = input_file_name
     srt_dummy_output_path = srt_output_path
-    return segment_info,srt_content,txt_nr_content, txt_r_content, main_files, doc_files ,html_srt, html_nr_txt, html_r_txt, filename_copy, srt_dummy_output_path, df_display
+    return segment_info,srt_content,txt_nr_content, txt_r_content, main_files, doc_files ,html_srt, html_nr_txt, html_r_txt, filename_copy, srt_dummy_output_path, df_display,[json_output_path,srt_output_path]
 
 '''
 テキストエリア①
