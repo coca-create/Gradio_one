@@ -42,6 +42,7 @@ css="""
 
 
 if __name__=="__main__":
+    multiprocessing.set_start_method("spawn")
     with gr.Blocks(css=css) as UI:
         gc.gr_components()
     UI.launch(debug=True, share=True)
