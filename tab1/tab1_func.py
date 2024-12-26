@@ -504,6 +504,7 @@ def transcribe(queue,File, Model, Computing, Lang, BeamSize, VadFilter, device):
                 txtdoc_nr_output_path, txtdoc_r_output_path,segment_info]
         queue.put(("result",paths))
         queue.put(("done",None))
+        return
         
         #torch.cuda.empty_cache()  # GPUメモリを解放
         #gc.collect()     
@@ -512,6 +513,7 @@ def transcribe(queue,File, Model, Computing, Lang, BeamSize, VadFilter, device):
         print(f"ファイル処理中にエラーが発生しました: {e}")
         traceback.print_exc()
         queue.put(("error",None))
+        return
 
 
 def run_with_progress(File, Model, Computing, Lang, BeamSize, VadFilter, device,progress=gr.Progress()):
