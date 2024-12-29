@@ -1,10 +1,43 @@
 元の単語,置き換え後の単語,タグ,属性
-dr.,dr[dot],# en,Set
+dr.,Dr[dot],# en,Set
 Dr.,Dr[dot],# en,Set
-a.m.,a[dot]m[dot],# en,Single
-p.m.,p[dot]m[dot],# en,Single
+a.m.,A[dot]M[dot],# en,Single
+p.m.,P[dot]M[dot],# en,Single
 A.M.,A[dot]M[dot],# en,Single
 P.M.,P[dot]M[dot],# en,Single
 etc.,etc[dot],# et cetra,Single
 i.e.,i[dot]e[dot],# that is,Single
-e.g.,e[dot]g[dot],# for example,Single
+e.g.,e[dot]g[dot],# for example,
+st.,St[dot],# en,Set
+St.,St[dot],# en,Set
+mr.,Mr[dot],# en,Set
+Mr.,Mr[dot],# en,Set
+mrs.,Mrs[dot],# en,Set
+Mrs.,Mrs[dot],# en,Set
+ms.,Ms[dot],# en,Set
+Ms.,Ms[dot],# en,Set
+sr.,Sr[dot],# spanish,
+Sr.,Sr[dot],# spanish,
+sra.,Sra[dot],# spanish,
+Sra.,Sra[dot],# spanish,
+srs.,Srs[dot],# spanish,
+Srs.,Srs[dot],# spanish,
+rev.,Rev[dot],# en,Set
+Rev.,Rev[dot],# en,Set
+prof.,Prof[dot],# en,Set
+Prof.,Prof[dot],# en,Set
+vol.,Vol[dot],# en,Set
+Vol.,Vol[dot],# en,Set
+inc.,Inc[dot],# en,Set
+Inc.,Inc[dot],# en,Set
+ed.,Ed[dot],# en,Set
+Ed.,Ed[dot],# en,Set
+ltd.,Ltd[dot],# en,Set
+Ltd.,Ltd[dot],# en,Set
+co.,Co[dot],# en,Set
+Co.,Co[dot],# en,Set
+misc.,Misc[dot],# en,Set
+Misc.,Misc[dot],# en,Set
+corp.,Corp[dot],# en,Set
+Corp.,Corp[dot],# en,Set
+U.S.,U[dot]S[dot],# en,Set
