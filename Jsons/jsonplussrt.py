@@ -10,9 +10,9 @@ import spacy
 import zipfile
 from transformers import AutoTokenizer, AutoModelForTokenClassification
 from docx import Document
-from Split import moz_split as sp 
+from modules import moz_split as sp 
 import csv
-from tab1 import tab1_func as t1
+from modules import tab1_func as t1
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="transformers")
 from multiprocessing import Process, Queue
@@ -269,7 +269,6 @@ def split_srt_segment(segment, json_data,i):
        # print(f"JSON start: {item['start']}, end: {item['end']}, word: {item['word']}")
 
     protected_text = segment['text']
-    protected_text = protect_special_cases_srt(protected_text) #★
     words = protected_text.split()  # 単語単位で分割
     new_segments = []
     stock_sentences = []
@@ -428,7 +427,7 @@ def tab9_main(queue,json_file, input_srt_file):
 
 
 
-def repair(queue,json_files,srt_files):
+def repair(queue,json_files, srt_files):
     #print("JSON file path:", json_files)
     #print("SRT file path:", srt_files)
     valid_sets = []
@@ -522,13 +521,13 @@ def repair(queue,json_files,srt_files):
         queue.put(("done",None))
         return
 
-def run_spacy(json_files,srt_files,progress=gr.Progress()):
+def run_spacy(json_files, srt_files,progress=gr.Progress()):
     timestamp_patch = datetime.now().strftime("%Y%m%d%H%M%S")
     temp_dir = os.path.join(tempfile.gettempdir(), f"tempdir_{timestamp_patch}")
     os.makedirs(temp_dir, exist_ok=True)
 
     queue = Queue()
-    process = Process(target=repair, args=(queue,json_files,srt_files))
+    process = Process(target=repair, args=(queue,json_files, srt_files))
     process.start()
 
     paths = None
@@ -651,6 +650,7 @@ def run_spacy2(main_files,progress=gr.Progress()):
 
     with zipfile.ZipFile(zip_core_file_path, 'w') as zip_file:
         zip_file.write(json_path, os.path.basename(json_path))
+        zip_file.write(srt_path,os.path.basename(srt_path))
         zip_file.write(srt_output_path, os.path.basename(srt_output_path))
         zip_file.write(txt_r_output_path, os.path.basename(txt_r_output_path))
         zip_file.write(txt_nr_output_path, os.path.basename(txt_nr_output_path))
