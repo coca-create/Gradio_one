@@ -74,7 +74,7 @@ def get_audio_duration(filepath,high_pulse=None,low_pulse=None,noise_reduction=N
         ))
 
         # Return the duration and path to the WAV file
-       print(wav_filepath)
+        print(wav_filepath)
         return duration, wav_filepath
 
     except Exception as e:
