@@ -10,7 +10,7 @@ import spacy
 import zipfile
 from transformers import AutoTokenizer, AutoModelForTokenClassification
 from docx import Document
-from modules import moz_split as sp 
+from Split import moz_split as sp 
 import csv
 from tab1 import tab1_func as t1
 import warnings
