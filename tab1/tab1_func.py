@@ -22,7 +22,7 @@ import math
 from multiprocessing import Process, Queue
 
 def get_audio_duration(filepath,high_pulse=None,low_pulse=None,noise_reduction=None):
-   
+    print(filepath)
     """
     Converts an input audio/video file to WAV format with 16kHz sampling rate, mono channel, and filters.
     Applies a high-pass and low-pass filter to remove low and high-frequency noise.
@@ -74,6 +74,7 @@ def get_audio_duration(filepath,high_pulse=None,low_pulse=None,noise_reduction=N
         ))
 
         # Return the duration and path to the WAV file
+       print(wav_filepath)
         return duration, wav_filepath
 
     except Exception as e:
