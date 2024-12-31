@@ -21,8 +21,8 @@ import ffmpeg
 import math
 from multiprocessing import Process, Queue
 
-def get_audio_duration(filepath,high_pulse=None,low_pulse=None,noise_reduction=None):
-    print(filepath)
+def get_audio_duration(filepath,high_pulse=None,low_pulse=None,noise_reduction=None,output_dir="/content/temp_wav_files"):
+    #print(filepath)
     """
     Converts an input audio/video file to WAV format with 16kHz sampling rate, mono channel, and filters.
     Applies a high-pass and low-pass filter to remove low and high-frequency noise.
@@ -38,12 +38,10 @@ def get_audio_duration(filepath,high_pulse=None,low_pulse=None,noise_reduction=N
     try:
         # Ensure the output directory exists
         if not filepath.endswith(".wav"):
-            data_folder = os.path.join(os.getenv('APPDATA'), 'PeriOz1')
-            os.makedirs(data_folder, exist_ok=True)
-
+            os.makedirs(output_dir, exist_ok=True)
             # Generate a temporary output path for the WAV file
             filename = os.path.splitext(os.path.basename(filepath))[0]
-            wav_filepath = os.path.join(data_folder, f"{filename}.wav")
+            wav_filepath = os.path.join(output_dir, f"{filename}.wav")
 
             filter_parts = []
             if low_pulse is not None:
@@ -74,7 +72,7 @@ def get_audio_duration(filepath,high_pulse=None,low_pulse=None,noise_reduction=N
         ))
 
         # Return the duration and path to the WAV file
-        print(wav_filepath)
+        #print(wav_filepath)
         return duration, wav_filepath
 
     except Exception as e:
@@ -169,7 +167,7 @@ def transcribe(hp_dp,lp_dp,nr_dp,queue,File, Model, Computing, Lang, BeamSize, V
     '''global model
     del model
     gc.collect()'''  
-    print(File)
+    #print(File)
 
     if hp_dp=="None":
         hp_dp=None
@@ -223,7 +221,7 @@ def transcribe(hp_dp,lp_dp,nr_dp,queue,File, Model, Computing, Lang, BeamSize, V
         if ctranslate2.get_cuda_device_count() == 0:
              queue.put(("error","Cudaが選択されていますが、利用できません。"))
              
-    Print(File)
+    #Print(File)
     total_duration,File = get_audio_duration(File,hp_dp,lp_dp,nr_dp)
     model = WhisperModel(Model, device=device, compute_type=Computing)
     print(f"using:{device}")
