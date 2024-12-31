@@ -1,13 +1,13 @@
 import gradio as gr
-from modules import tab1_func as t1
-from modules import tab2_func as t2
-from modules import tab3_func as t3
-from modules import tab4_func as t4
-from modules import tab5_func as t5
-from modules import tab7_func as t7
-from modules import tab8_func as t8
-from modules import moz_split as sp
-from modules import jsonplussrt as json_rv
+from tab1 import tab1_func as t1
+from tab2 import tab2_func as t2
+from tab3 import tab3_func as t3
+from tab4 import tab4_func as t4
+from tab5 import tab5_func as t5
+from tab7 import tab7_func as t7
+from tab8 import tab8_func as t8
+from Split import moz_split as sp
+from Jsons import jsonplussrt as json_rv
 
 import pandas as pd
 
