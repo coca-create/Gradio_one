@@ -12,7 +12,7 @@ from transformers import AutoTokenizer, AutoModelForTokenClassification
 from docx import Document
 from modules import moz_split as sp 
 import csv
-from modules import tab1_func as t1
+from tab1 import tab1_func as t1
 import warnings
 warnings.filterwarnings("ignore", category=UserWarning, module="transformers")
 from multiprocessing import Process, Queue
